@@ -88,7 +88,7 @@ class HeroSection extends StatelessWidget {
         children: [
           ClipOval(
             child: Image.asset(
-              "../build/assets/main_pic.png",
+              "../assets/images/main_pic.png",
               width: isMobile ? 34 : 160,
               height: isMobile ? 34 : 160,
               fit: BoxFit.cover,
