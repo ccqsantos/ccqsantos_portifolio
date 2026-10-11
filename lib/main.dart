@@ -86,12 +86,13 @@ class HeroSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ClipOval(
-            child: Image.asset(
-              "../assets/images/main_pic.png",
-              width: isMobile ? 34 : 160,
-              height: isMobile ? 34 : 160,
-              fit: BoxFit.cover,
+          CircleAvatar(
+            radius: isMobile ? 60 : 80,
+            backgroundColor: const Color.fromARGB(255, 220, 212, 207),
+            child: Icon(
+              Icons.person,
+              size: isMobile ? 60 : 80,
+              color: const Color.fromARGB(255, 222, 132, 80),
             ),
           ),
           const SizedBox(height: 24),
