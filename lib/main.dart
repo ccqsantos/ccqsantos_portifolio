@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
   usePathUrlStrategy(); // Removes the '#' from URLs
@@ -47,10 +46,7 @@ class PortfolioHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Cauã dos Santos',
-          style: TextStyle(fontFamily: 'LibreCaslonCondensed'),
-        ),
+        title: const Text('Cauã dos Santos'),
         centerTitle: true,
         actions: [
           IconButton(
