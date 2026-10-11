@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
   usePathUrlStrategy(); // Removes the '#' from URLs
   runApp(const PortfolioApp());
 }
 
+//função de abrir url's
+Future<void> launchUrlInBrowser(String urlString) async {
+  final Uri url = Uri.parse(urlString);
+
+  //se der erro lançar erro
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw Exception('Could not launch $urlString');
+  }
+}
+
+//classe principal
 class PortfolioApp extends StatelessWidget {
   const PortfolioApp({super.key});
 
@@ -15,7 +28,7 @@ class PortfolioApp extends StatelessWidget {
       title: 'Cauã dos Santos | Portfolio',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueGrey,
+          seedColor: const Color.fromARGB(255, 255, 60, 0),
           brightness: Brightness.light,
         ),
         useMaterial3: true,
@@ -26,6 +39,7 @@ class PortfolioApp extends StatelessWidget {
   }
 }
 
+//classe da home
 class PortfolioHome extends StatelessWidget {
   const PortfolioHome({super.key});
 
@@ -33,15 +47,15 @@ class PortfolioHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cauã dos Santos'),
+        title: const Text(
+          'Cauã dos Santos',
+          style: TextStyle(fontFamily: 'LibreCaslonCondensed'),
+        ),
         centerTitle: true,
         actions: [
-          // Add your social links here
           IconButton(
             icon: const Icon(Icons.code),
-            onPressed: () {
-              // Open GitHub profile
-            },
+            onPressed: () => launchUrlInBrowser('https://github.com/ccqsantos'),
             tooltip: 'GitHub',
           ),
         ],
@@ -76,13 +90,12 @@ class HeroSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          CircleAvatar(
-            radius: isMobile ? 60 : 80,
-            backgroundColor: Colors.blueGrey.shade100,
-            child: Icon(
-              Icons.person,
-              size: isMobile ? 60 : 80,
-              color: Colors.blueGrey,
+          ClipOval(
+            child: Image.asset(
+              "../assets/main_pic.png",
+              width: isMobile ? 34 : 160,
+              height: isMobile ? 34 : 160,
+              fit: BoxFit.cover,
             ),
           ),
           const SizedBox(height: 24),
@@ -90,19 +103,27 @@ class HeroSection extends StatelessWidget {
             'Cauã dos Santos',
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.blueGrey.shade800,
+              color: const Color.fromARGB(255, 161, 18, 18),
             ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
-            'Multiplatform Software Development Student',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(color: Colors.blueGrey.shade600),
+            'Cursando Desenvolvimento de Software Multiplataforma',
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: const Color.fromARGB(255, 255, 103, 53),
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
+          Text(
+            '4º Semestre',
+            style: Theme.of(
+              context,
+            ).textTheme.bodyLarge?.copyWith(color: Colors.grey.shade600),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 11),
           Text(
             'FATEC Osasco',
             style: Theme.of(
@@ -116,17 +137,9 @@ class HeroSection extends StatelessWidget {
             runSpacing: 16,
             alignment: WrapAlignment.center,
             children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  // Scroll to projects
-                },
-                icon: const Icon(Icons.work),
-                label: const Text('View My Work'),
-              ),
               OutlinedButton.icon(
-                onPressed: () {
-                  // Open GitHub
-                },
+                onPressed: () =>
+                    launchUrlInBrowser('https://github.com/ccqsantos'),
                 icon: const Icon(Icons.code),
                 label: const Text('GitHub Profile'),
               ),
@@ -149,7 +162,7 @@ class AboutSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'About Me',
+            'Sobre Mim',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blueGrey.shade800,
@@ -159,10 +172,10 @@ class AboutSection extends StatelessWidget {
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 800),
             child: Text(
-              'I am a student passionate about software development, '
-              'currently studying Multiplatform Software Development at FATEC Osasco. '
-              'I have experience with Java, JavaScript, C, and HTML, and I am '
-              'constantly expanding my skills to build modern, efficient applications.',
+              'Sou apaixonado pela computação, '
+              'atualmente cursando Desenvolvimento de Software Multiplataforma na FATEC Osasco. '
+              'Tenho experiência com Java/Spring, JavaScript/Node.js, C, e C#/.NET, e recentemente '
+              'tenho estudado LLMs e machine learning.',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 height: 1.6,
                 color: Colors.grey.shade700,
@@ -184,8 +197,8 @@ class SkillsSection extends StatelessWidget {
     final skills = [
       {'name': 'Java', 'level': 0.8, 'icon': Icons.code},
       {'name': 'JavaScript', 'level': 0.75, 'icon': Icons.javascript},
-      {'name': 'C', 'level': 0.7, 'icon': Icons.terminal},
-      {'name': 'HTML/CSS', 'level': 0.8, 'icon': Icons.web},
+      {'name': 'C#', 'level': 0.55, 'icon': Icons.terminal},
+      {'name': 'HTML/CSS', 'level': 0.9, 'icon': Icons.web},
       {'name': 'Node.js', 'level': 0.6, 'icon': Icons.dns},
       {'name': 'Flutter/Dart', 'level': 0.5, 'icon': Icons.phone_android},
     ];
@@ -214,7 +227,7 @@ class SkillsSection extends StatelessWidget {
                     Icon(
                       skill['icon'] as IconData,
                       size: 40,
-                      color: Colors.blueGrey,
+                      color: const Color.fromARGB(255, 161, 18, 18),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -225,7 +238,7 @@ class SkillsSection extends StatelessWidget {
                     LinearProgressIndicator(
                       value: skill['level'] as double,
                       backgroundColor: Colors.grey.shade200,
-                      color: Colors.blueGrey,
+                      color: const Color.fromARGB(255, 161, 18, 18),
                       minHeight: 8,
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -252,6 +265,7 @@ class ProjectsSection extends StatelessWidget {
         'tech': 'Java',
         'icon': Icons.architecture,
         'color': Colors.blue,
+        'url': 'https://github.com/ccqsantos/SOLID-Principles',
       },
       {
         'title': 'ReciclaBytes',
@@ -260,14 +274,16 @@ class ProjectsSection extends StatelessWidget {
         'tech': 'HTML',
         'icon': Icons.recycling,
         'color': Colors.green,
+        'url': 'https://github.com/ccqsantos/ReciclaBytes',
       },
       {
-        'title': 'et_pariset_paris',
+        'title': 'et_paris',
         'description':
             'REST API with JWT auth, MVC architecture, Sequelize ORM',
         'tech': 'Node.js/Express',
         'icon': Icons.api,
         'color': Colors.orange,
+        'url': 'https://github.com/ccqsantos/et_paris',
       },
       {
         'title': 'Hangman in Java',
@@ -276,6 +292,7 @@ class ProjectsSection extends StatelessWidget {
         'tech': 'Java',
         'icon': Icons.games,
         'color': Colors.purple,
+        'url': 'https://github.com/ccqsantos/Hangman-in-Java',
       },
       {
         'title': 'NewJeans Blog',
@@ -283,6 +300,7 @@ class ProjectsSection extends StatelessWidget {
         'tech': 'HTML',
         'icon': Icons.article,
         'color': Colors.pink,
+        'url': 'https://github.com/ccqsantos/NewJeansBlogProj',
       },
       {
         'title': 'Guess the Color in C',
@@ -290,11 +308,12 @@ class ProjectsSection extends StatelessWidget {
         'tech': 'C',
         'icon': Icons.palette,
         'color': Colors.red,
+        'url': 'https://github.com/ccqsantos/Adivinhe_a_cor_em_C',
       },
     ];
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 60),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
       color: Colors.grey.shade50,
       child: Column(
         children: [
@@ -302,7 +321,7 @@ class ProjectsSection extends StatelessWidget {
             'Projects',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.blueGrey.shade800,
+              color: const Color.fromARGB(255, 47, 13, 13),
             ),
           ),
           const SizedBox(height: 32),
@@ -325,56 +344,60 @@ class ProjectsSection extends StatelessWidget {
                   itemCount: projects.length,
                   itemBuilder: (context, index) {
                     final project = projects[index];
-                    return Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: (project['color'] as Color).withValues(
-                                  alpha: 0.1,
+                    return InkWell(
+                      onTap: () => launchUrlInBrowser(project['url'] as String),
+                      borderRadius: BorderRadius.circular(16),
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: (project['color'] as Color).withValues(
+                                    alpha: 0.1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Icon(
-                                project['icon'] as IconData,
-                                color: project['color'] as Color,
-                                size: 32,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              project['title'] as String,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Expanded(
-                              child: Text(
-                                project['description'] as String,
-                                style: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  height: 1.4,
+                                child: Icon(
+                                  project['icon'] as IconData,
+                                  color: project['color'] as Color,
+                                  size: 32,
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 12),
-                            Chip(
-                              label: Text(project['tech'] as String),
-                              backgroundColor: (project['color'] as Color)
-                                  .withValues(alpha: 0.1),
-                              side: BorderSide.none,
-                            ),
-                          ],
+                              const SizedBox(height: 16),
+                              Text(
+                                project['title'] as String,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Expanded(
+                                child: Text(
+                                  project['description'] as String,
+                                  style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Chip(
+                                label: Text(project['tech'] as String),
+                                backgroundColor: (project['color'] as Color)
+                                    .withValues(alpha: 0.1),
+                                side: BorderSide.none,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -399,10 +422,10 @@ class ContactSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Get In Touch',
+            'Contato',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.blueGrey.shade800,
+              color: const Color.fromARGB(255, 173, 65, 29),
             ),
           ),
           const SizedBox(height: 32),
@@ -417,9 +440,9 @@ class ContactSection extends StatelessWidget {
                 value: 'github.com/ccqsantos',
               ),
               _ContactItem(
-                icon: Icons.school,
-                label: 'FATEC Osasco',
-                value: 'Multiplatform Software Development',
+                icon: Icons.chat_bubble,
+                label: 'X',
+                value: 'x.com/ccqsantos',
               ),
             ],
           ),
@@ -444,7 +467,7 @@ class _ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, size: 41, color: Colors.blueGrey),
+        Icon(icon, size: 41, color: const Color.fromARGB(255, 255, 180, 59)),
         const SizedBox(height: 8),
         Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
         Text(value, style: TextStyle(color: Colors.grey.shade600)),
