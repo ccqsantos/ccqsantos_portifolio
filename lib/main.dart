@@ -444,7 +444,7 @@ class _ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, size: 40, color: Colors.blueGrey),
+        Icon(icon, size: 41, color: Colors.blueGrey),
         const SizedBox(height: 8),
         Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
         Text(value, style: TextStyle(color: Colors.grey.shade600)),
