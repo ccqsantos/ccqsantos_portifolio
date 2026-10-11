@@ -88,7 +88,7 @@ class HeroSection extends StatelessWidget {
         children: [
           ClipOval(
             child: Image.asset(
-              "../assets/main_pic.png",
+              "../build/assets/main_pic.png",
               width: isMobile ? 34 : 160,
               height: isMobile ? 34 : 160,
               fit: BoxFit.cover,
@@ -99,16 +99,16 @@ class HeroSection extends StatelessWidget {
             'Cauã dos Santos',
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
               fontWeight: FontWeight.bold,
-              color: const Color.fromARGB(255, 161, 18, 18),
+              color: const Color.fromARGB(255, 47, 13, 13),
             ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
             'Cursando Desenvolvimento de Software Multiplataforma',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: const Color.fromARGB(255, 255, 103, 53),
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(color: Colors.grey.shade600),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
@@ -314,7 +314,7 @@ class ProjectsSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Projects',
+            'Projetos',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: const Color.fromARGB(255, 47, 13, 13),
@@ -421,7 +421,7 @@ class ContactSection extends StatelessWidget {
             'Contato',
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: const Color.fromARGB(255, 173, 65, 29),
+              color: const Color.fromARGB(255, 47, 13, 13),
             ),
           ),
           const SizedBox(height: 32),
