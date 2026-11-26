@@ -7,7 +7,7 @@ void main() {
   ) async {
     await tester.pumpWidget(const PortfolioApp());
     await tester.pumpAndSettle();
-
+    //Testes específicos
     // Verifica que o widget raiz foi montado
     expect(find.byType(PortfolioApp), findsOneWidget);
 
