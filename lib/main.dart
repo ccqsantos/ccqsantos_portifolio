@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -107,22 +107,25 @@ class HeroSection extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             'Cursando Desenvolvimento de Software Multiplataforma',
-            style: Theme.of(context).textTheme.titleLarge
-                ?.copyWith(color: Colors.grey.shade600),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(color: Colors.grey.shade600),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
             '4º Semestre',
-            style: Theme.of(context).textTheme.bodyLarge
-                ?.copyWith(color: Colors.grey.shade600),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyLarge?.copyWith(color: Colors.grey.shade600),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 11),
           Text(
             'FATEC Osasco',
-            style: Theme.of(context).textTheme.bodyLarge
-                ?.copyWith(color: Colors.grey.shade600),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyLarge?.copyWith(color: Colors.grey.shade600),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 32),
@@ -170,8 +173,10 @@ class AboutSection extends StatelessWidget {
               'atualmente cursando Desenvolvimento de Software Multiplataforma na FATEC Osasco. '
               'Tenho experiência com Java/Spring, JavaScript/Node.js, C, e C#/.NET, e recentemente '
               'tenho estudado LLMs e machine learning.',
-              style: Theme.of(context).textTheme.bodyLarge
-                  ?.copyWith(height: 1.6, color: Colors.grey.shade700),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                height: 1.6,
+                color: Colors.grey.shade700,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
